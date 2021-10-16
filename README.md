@@ -28,6 +28,10 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
+
+    for {
+        waitForNotification(listener)
+    }
 }
 
 func waitForNotification(l *pq.Listener) {
