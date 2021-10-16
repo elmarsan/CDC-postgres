@@ -63,6 +63,7 @@ func setupListener(db *sql.DB, event ListenEvent) (*pq.Listener, error) {
 			END IF;
 		 
 			notification = json_build_object(
+				'timestamp', NOW(),
 				'table',TG_TABLE_NAME, 
 				'action', TG_OP,
 				'data', data);
@@ -86,6 +87,7 @@ func setupListener(db *sql.DB, event ListenEvent) (*pq.Listener, error) {
 	`, event.Table, event.Table, event.Table, event.Event, event.Table,
 		),
 	)
+
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("Error: table `%s` does not exist", event.Table))
 	}
