@@ -1,4 +1,4 @@
-package main
+package listen
 
 import (
 	"database/sql"
@@ -31,7 +31,7 @@ type ListenEvent struct {
 	Event      SqlEvent
 }
 
-func GetListener(event ListenEvent) (*pq.Listener, error) {
+func Listener(event ListenEvent) (*pq.Listener, error) {
 	db := connect(event.ConnParams)
 	return setupListener(db, event)
 }
