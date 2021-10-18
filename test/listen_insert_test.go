@@ -10,7 +10,7 @@ func TestSetupInsertListenerForExistingTable(t *testing.T) {
 
 	insert := listen.Insert{}
 
-	_, err := insert.Listener(listen.Event{
+	listener, err := insert.Listener(listen.Event{
 		ConnParams: connParams,
 		Event:      listen.InsertSQLEvent,
 		Table:      table,
@@ -19,6 +19,10 @@ func TestSetupInsertListenerForExistingTable(t *testing.T) {
 	if err != nil {
 		t.Errorf("%v", err)
 	}
+
+	if listener != nil {
+		defer listener.Close()
+	}
 }
 
 func TestSetupInsertListenerForNonExistingTable(t *testing.T) {
@@ -26,7 +30,7 @@ func TestSetupInsertListenerForNonExistingTable(t *testing.T) {
 
 	insert := listen.Insert{}
 
-	_, err := insert.Listener(listen.Event{
+	listener, err := insert.Listener(listen.Event{
 		ConnParams: connParams,
 		Event:      listen.InsertSQLEvent,
 		Table:      table,
@@ -34,5 +38,9 @@ func TestSetupInsertListenerForNonExistingTable(t *testing.T) {
 
 	if err == nil {
 		t.Errorf("Unexpected listener established for table %s", table)
+	}
+
+	if listener != nil {
+		defer listener.Close()
 	}
 }
