@@ -3,9 +3,9 @@ package listen
 type SqlEvent string
 
 const (
-	Insert SqlEvent = "Insert"
-	Update SqlEvent = "Update"
-	Delete SqlEvent = "Delete"
+	InsertSQLEvent SqlEvent = "Insert"
+	UpdateSQLEvent SqlEvent = "Update"
+	DeleteSQLEvent SqlEvent = "Delete"
 )
 
 type DBConnParams struct {
