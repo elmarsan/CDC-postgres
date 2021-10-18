@@ -5,20 +5,12 @@ import (
 	"testing"
 )
 
-var connParams = listen.DBConnParams{
-	Host: "localhost",
-	Port: 5432,
-	User: "postgres",
-	Pass: "password",
-	Name: "test",
-}
-
-func TestSetupListenerForExistingTable(t *testing.T) {
+func TestSetupDeleteListenerForExistingTable(t *testing.T) {
 	table := "users"
 
-	insert := listen.Insert{}
+	deleteL := listen.Delete{}
 
-	_, err := insert.Listener(listen.Event{
+	_, err := deleteL.Listener(listen.Event{
 		ConnParams: connParams,
 		Event:      listen.InsertSQLEvent,
 		Table:      table,
@@ -29,12 +21,12 @@ func TestSetupListenerForExistingTable(t *testing.T) {
 	}
 }
 
-func TestSetupListenerForNonExistingTable(t *testing.T) {
+func TestSetupDeleteListenerForNonExistingTable(t *testing.T) {
 	table := "posts"
 
-	insert := listen.Insert{}
+	deleteL := listen.Delete{}
 
-	_, err := insert.Listener(listen.Event{
+	_, err := deleteL.Listener(listen.Event{
 		ConnParams: connParams,
 		Event:      listen.InsertSQLEvent,
 		Table:      table,
