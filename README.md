@@ -7,19 +7,21 @@ Only valid with postgres databases.
 
 ```go
 func main() {
-    listenEvent := ListenEvent{
+    insert := listen.Insert{}
+	
+    listenEvent := listen.Event{
         Table: "products",
         Event: Insert,
         ConnParams: DBConnParams{
             Host: "localhost",
-            Port: 45432,
-            User: "postgres",
-            Pass: "ebitlabs",
-            Name: "shop",
+            Port: 5432,
+            User: "db_user",
+            Pass: "db_password",
+            Name: "db_name",
         },
     }
     
-    listener, err := GetListener(listenEvent)
+    listener, err := insert.Listener(listenEvent)
     if err != nil {
         log.Fatal(err)
     }
@@ -51,6 +53,5 @@ func waitForNotification(l *pq.Listener) {
         }
     }
 }
-
 
 ```
