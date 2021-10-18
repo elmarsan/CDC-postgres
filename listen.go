@@ -9,29 +9,7 @@ import (
 	"time"
 )
 
-type SqlEvent string
-
-const (
-	Insert SqlEvent = "Insert"
-	Update SqlEvent = "Update"
-	Delete SqlEvent = "Delete"
-)
-
-type DBConnParams struct {
-	Host string
-	Port uint16
-	User string
-	Pass string
-	Name string
-}
-
-type ListenEvent struct {
-	ConnParams DBConnParams
-	Table      string
-	Event      SqlEvent
-}
-
-func Listener(event ListenEvent) (*pq.Listener, error) {
+func Listener(event Event) (*pq.Listener, error) {
 	db := connect(event.ConnParams)
 	return setupListener(db, event)
 }
@@ -47,7 +25,7 @@ func connect(connParams DBConnParams) *sql.DB {
 	return db
 }
 
-func setupListener(db *sql.DB, event ListenEvent) (*pq.Listener, error) {
+func setupListener(db *sql.DB, event Event) (*pq.Listener, error) {
 	_, err := db.Query(`
 		CREATE OR REPLACE FUNCTION cdc_notify_event() RETURNS TRIGGER AS $$
 

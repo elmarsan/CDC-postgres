@@ -16,7 +16,7 @@ var connParams = listen.DBConnParams{
 func TestSetupListenerForExistingTable(t *testing.T) {
 	table := "users"
 
-	_, err := listen.Listener(listen.ListenEvent{
+	_, err := listen.Listener(listen.Event{
 		ConnParams: connParams,
 		Event:      listen.Insert,
 		Table:      table,
@@ -30,7 +30,7 @@ func TestSetupListenerForExistingTable(t *testing.T) {
 func TestSetupListenerForNonExistingTable(t *testing.T) {
 	table := "posts"
 
-	_, err := listen.Listener(listen.ListenEvent{
+	_, err := listen.Listener(listen.Event{
 		ConnParams: connParams,
 		Event:      listen.Insert,
 		Table:      table,
