@@ -4,8 +4,8 @@ import listen "cdc"
 
 var connParams = listen.DBConnParams{
 	Host: "localhost",
-	Port: 45432,
+	Port: 5432,
 	User: "postgres",
-	Pass: "ebitlabs",
+	Pass: "password",
 	Name: "test",
 }
