@@ -7,4 +7,4 @@ COPY ../go.sum ./
 RUN go mod download
 COPY ../*.go ./
 
-RUN go test ./test
+CMD ["go", "test", "./test", "-v"]
