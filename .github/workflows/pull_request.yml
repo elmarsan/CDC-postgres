@@ -1,0 +1,34 @@
+name: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    container: node:10.18-jessie
+
+    services:
+      postgres:
+        image: postgres:14.0
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - run: |
+          go test ./... -v
