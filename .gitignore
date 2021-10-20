@@ -13,3 +13,6 @@
 
 # IDE
 .idea
+
+.github/workflows/node_modules
+.github/workflows/package-lock.json
